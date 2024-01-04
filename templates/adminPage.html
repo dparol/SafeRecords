@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>admin page</h1>
+    {% block content %}
+        <h2>All Records</h2>
+       {% for x in user %}
+            <p>{{x }}</p>
+        {% endfor %}
+
+    {% endblock content %}
+</body>
+</html>
