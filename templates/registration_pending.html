@@ -6,8 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-   <h1>you are in queue</h1> 
-   please wait,your data under proccesing
+   <h1>
+   {% block content %}
+      {% if request.user.is_authenticated and request.user.is_admin %}
+           Hello {{ request.user }}<br>
+           {{message.message}}
+      {% else %}
+      <center>Thank you for registering with us<br><p> please wait,our team will get in touch with you</p></center>
+      {% endif %}
+    {% endblock %}
+</h1>
 
 </body>
 </html>

@@ -102,7 +102,7 @@ item_status=(
     ('checked','CHECKED'),
     ('unchecked','UNCHECKED')
 )
-class QrCoeData(models.Model):
+class Barcode_Data(models.Model):
     empId=models.ForeignKey(BusinessEmployee,on_delete=models.CASCADE)
     room_number=models.CharField(max_length=100)
     location=models.CharField(max_length=50)

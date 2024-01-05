@@ -61,7 +61,8 @@ def userlogin(request):
             if user is not None and user.is_superadmin:
                 return render(request,'adminPage.html')
             elif user is not None and user.is_admin:
-                return render(request,'ManagerPage.html')
+                message={"message":"please wait until admin approves"}
+                return render(request,'registration_pending.html',{'message':message})
             elif user is not None and user.is_active:
                 return render(request,'registration_pending.html') 
             else:
@@ -76,7 +77,7 @@ def userlogin(request):
 
 def approve_registration(request):
 
-    user_id=1
+    user_id=
 
     #take single manager data and processing
     user=Account.objects.get(pk=user_id)
@@ -121,3 +122,5 @@ def Newemployee(request):
         )
 
         return render(request,'create_new_employee.html')
+
+
