@@ -46,81 +46,35 @@ def register(request):
 def userlogin(request):
 
     if request.method=='POST':
-        username=request.POST['username']
+        email=request.POST.get('email')
         password=request.POST['password']
-        print(username)
-        print(password)
+      
 
+        user=authenticate(username=email,password=password)
+        print(user)
         try:
-            user=Account.objects.get(Q(username__iexact=username))
+            if user:
+                return redirect('home')
         except ObjectDoesNotExist:
-            user = None
+           print('user not exixt')
 
-        if user is not None and check_password(password,user.password):
-            login(request, user)
-            if user is not None and user.is_superadmin:
-                return render(request,'adminPage.html')
-            elif user is not None and user.is_admin:
-                message={"message":"please wait until admin approves"}
-                return render(request,'registration_pending.html',{'message':message})
-            elif user is not None and user.is_active:
-                return render(request,'registration_pending.html') 
-            else:
-                messages.error(request,"invalid login credentials")
-        else:
-                messages.error(request,"invalid login credentials")
     return render(request,'sign-in.html')
 
         
 
     
 
-def approve_registration(request):
 
-    user_id=
-
-    #take single manager data and processing
-    user=Account.objects.get(pk=user_id)
-    #to allow all permissions
-    user.is_active=True
-    user.is_staff=True
-    user.is_admin=True
-    #save data
-    user.save()
-    
-    #create new manager id
-    # manager=BusinessManager.objects.get(user=user)
-    #to provide manager id in database
-    # manager.managerId=manager_id
-    # #save data
-    # manager.save()
-
-    return render(request,'registration_approved.html')
 
 
 def adminPage(request):
     user=Account.objects.filter(is_superadmin=False)
     for users in user:
         print(users)
-    create_new_employee=Newemployee()
+    
     return render(request,'adminPage.html',{'user':user})
 
 
 
-def Newemployee(request):
-    if request.method == 'POST':
-        emp_id=request.POST['emp_id']
-        emp_name=request.POST['emp_name']
-        phone_number=request.POST[phone_number]
-        emp_IdCard=request.POST[emp_IdCard]
-
-        new_employee=BusinessEmployee.objects.create(
-            emp_id=emp_id,
-            emp_name=emp_name,
-            phone_number=phone_number,
-            emp_IdCard=emp_IdCard
-        )
-
-        return render(request,'create_new_employee.html')
 
 
